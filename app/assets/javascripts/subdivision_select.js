@@ -32,13 +32,13 @@ var SubdivisionSelect = (function() {
     this._countrySelect.change(onChange);
 
     function poll() {
-      if (self.country != this._countrySelect.val()) {
+      if (self.country != self._countrySelect.val()) {
         onChange();
       }
     }
 
     function onChange() {
-      self.country = $(this).val();
+      self.country = self._countrySelect.val();
       $.ajax( {
         url: "/subdivisions",
         data: { country_code: self.country }
