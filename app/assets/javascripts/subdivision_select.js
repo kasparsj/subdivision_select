@@ -42,7 +42,7 @@ var SubdivisionSelect = (function() {
       $.ajax( {
         url: "/subdivisions",
         data: { country_code: self.country }
-      }).success(function(newSubdivisions) {
+      }).done(function(newSubdivisions) {
         self._clearSubdivisionSelect();
         self._updateSubdivisionSelect(newSubdivisions);
       });
