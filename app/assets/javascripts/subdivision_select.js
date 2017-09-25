@@ -39,9 +39,10 @@ var SubdivisionSelect = (function() {
 
     function onChange() {
       self.country = self._countrySelect.val();
+      var locale = self._subdivisionSelect.data("locale");
       $.ajax( {
         url: "/subdivisions",
-        data: { country_code: self.country }
+        data: { country_code: self.country, locale: locale }
       }).done(function(newSubdivisions) {
         self._clearSubdivisionSelect();
         self._updateSubdivisionSelect(newSubdivisions);
