@@ -40,13 +40,20 @@ var SubdivisionSelect = (function() {
     function onChange() {
       self.country = self._countrySelect.val();
       var locale = self._subdivisionSelect.data("locale");
-      $.ajax( {
-        url: "/subdivisions",
-        data: { country_code: self.country, locale: locale }
-      }).done(function(newSubdivisions) {
+      if(typeof(gon.subdivisions_data) !== 'undefined' && typeof(gon.subdivisions_data[self.country]) !== 'undefined'){
+        // we can get the data without an ajax call, might be important in high traffic times for example
         self._clearSubdivisionSelect();
-        self._updateSubdivisionSelect(newSubdivisions);
-      });
+	console.log("gon subdivisions found, no ajax call required");
+        self._updateSubdivisionSelect(gon.subdivisions_data[self.country]);
+      } else {	      
+        $.ajax( {
+          url: "/subdivisions",
+          data: { country_code: self.country, locale: locale }
+        }).done(function(newSubdivisions) {
+          self._clearSubdivisionSelect();
+          self._updateSubdivisionSelect(newSubdivisions);
+        });
+      }
     }
   };
 
