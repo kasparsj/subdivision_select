@@ -9,7 +9,9 @@ module SubdivisionSelect
       if ISO3166::Country[alpha2].nil?
         {}
       else
-        ISO3166::Country[alpha2].subdivisions.map { |k, v| [k, I18n.t("states.#{alpha2}.#{k}", default: v["name"])] }.to_h
+        # ISO3166::Country[alpha2].subdivisions.map { |k, v| [k, I18n.t("states.#{alpha2}.#{k}", default: v["name"])] }.to_h
+        # ***** change this line so the source of truth is the Subdivision name in our app that we registered with ISO3166::Data.register, not the translation file - subdivisions do not need translations anyway
+        ISO3166::Country[alpha2].subdivisions.map { |k, v| [k, v["name"]] }.to_h
       end
     end
 
